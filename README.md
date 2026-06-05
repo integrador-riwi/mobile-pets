@@ -1,17 +1,112 @@
-# mobile_pets
+# PawExplorers — Mobile App
 
-Mobile app for pets
+App móvil Flutter para la plataforma PawExplorers. Conecta dueños de mascotas, walkers y negocios pet care.
 
-## Getting Started
+## Stack
 
-This project is a starting point for a Flutter application.
+- **Flutter 3.44.0** (channel stable) — Dart 3.12.0
+- **Clean Architecture** — `core / data / domain / presentation`
+- **State management:** Bloc / Cubit
+- **WebSockets:** SignalR (`signalr_netcore`) para seguimiento GPS en tiempo real
 
-A few resources to get you started if this is your first Flutter project:
+## Arquitectura — Clean Architecture
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```
+lib/
+│
+├── core/              # transversal — sin lógica de negocio
+│   ├── constants/     # colores de marca, rutas, strings
+│   ├── errors/        # failure types, excepciones
+│   ├── network/       # HTTP client, interceptors
+│   └── utils/         # helpers genéricos
+│
+├── data/              # fuentes de datos
+│   ├── datasources/   # API remote datasources, local cache
+│   ├── models/        # DTOs / JSON serialization
+│   └── repositories/  # implementación de interfaces de domain
+│
+├── domain/            # núcleo — sin Flutter, sin paquetes externos
+│   ├── entities/      # modelos de dominio puros
+│   ├── repositories/  # interfaces (contratos)
+│   └── usecases/      # casos de uso por módulo
+│
+└── presentation/      # UI
+    ├── bloc/          # Blocs y Cubits por módulo
+    ├── pages/         # screens
+    └── widgets/       # widgets reutilizables
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Regla de dependencias
+
+```
+presentation → domain ← data
+       └──── core ────┘
+```
+
+`domain` no importa Flutter ni paquetes externos.
+
+## Setup local
+
+### Requisitos
+
+- Flutter 3.44.0 (`flutter --version` para verificar)
+- Dart 3.12.0
+- Dispositivo o emulador Android/iOS
+
+### Variables de entorno
+
+Crear `.env.json` en la raíz del proyecto (no se commitea):
+
+```json
+{
+  "API_BASE_URL": "http://TU_VPS_IP/api",
+  "SIGNALR_HUB_URL": "http://TU_VPS_IP/hubs"
+}
+```
+
+### Correr
+
+```bash
+flutter run --dart-define-from-file=.env.json
+```
+
+### Build release
+
+```bash
+flutter build apk --dart-define-from-file=.env.json
+flutter build ios --dart-define-from-file=.env.json
+```
+
+## Convenciones de API
+
+- Base: `/api/{recurso}` — sin versionado
+- Casing: `kebab-case` → `/api/walking-history`
+- Relaciones directas: recursos anidados → `/api/users/{id}/pets`
+- Auth: JWT — `access_token` en header `Authorization: Bearer`, ambos tokens en `flutter_secure_storage`
+
+## Colores de marca
+
+| Módulo | Hex |
+|--------|-----|
+| Core Brand / Dueños & Comunidad | `#607F7F` |
+| AI-Coach | `#5F36C2` |
+| Dashboard & Analytics | `#3A80C2` |
+| Pet Profile | `#1BAA71` |
+| Alert & Notificaciones | `#D05A24` |
+
+## Módulos (64 casos de uso)
+
+| Módulo | Estado |
+|--------|--------|
+| Gestión de usuarios y acceso (UC-01–08) | Pendiente |
+| Perfil del perro (UC-09–14) | Pendiente |
+| Walk Planner (UC-15–20) | Pendiente |
+| Walker Hub (UC-21–27) | Pendiente |
+| Matching y recomendaciones (UC-28–31) | Pendiente |
+| Reserva y gestión del servicio (UC-32–38) | Pendiente |
+| Seguimiento en tiempo real / GPS (UC-39–44) | Pendiente |
+| Alertas perros perdidos/encontrados (UC-45–49) | Pendiente |
+| AI Coach (UC-50–55) | Pendiente |
+| Dashboard de actividad (UC-56–58) | Pendiente |
+| Reputación y calificaciones (UC-59–61) | Pendiente |
+| Administración (UC-62–64) | Pendiente |
