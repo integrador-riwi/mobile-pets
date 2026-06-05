@@ -77,6 +77,29 @@ flutter build apk --dart-define-from-file=.env.json
 flutter build ios --dart-define-from-file=.env.json
 ```
 
+## Paquetes
+
+| Paquete | Uso |
+|---------|-----|
+| `flutter_bloc` | Maneja el estado de la app |
+| `dio` | Hace las peticiones HTTP al backend |
+| `flutter_secure_storage` | Guarda los tokens en el dispositivo |
+| `go_router` | Navegación entre pantallas |
+| `get_it` | Conecta las dependencias entre capas |
+| `equatable` | Evita que la app se redibuje cuando nada cambió |
+| `signalr_netcore` | Conexión en tiempo real con el backend (GPS) |
+| `json_serializable` + `build_runner` | Convierte JSON a modelos y viceversa |
+
+## Flujo de ramas
+
+```
+feature/* → dev → staging → main
+```
+
+- `feature/*` siempre sale de `dev`
+- Nunca commitear directo a `main` o `staging`
+- Merge a `main` solo cuando `staging` está validado
+
 ## Convenciones de API
 
 - Base: `/api/{recurso}` — sin versionado
