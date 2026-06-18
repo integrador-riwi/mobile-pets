@@ -90,3 +90,4 @@ app.*.map.json
 
 # Local-only desktop platform
 linux/
+macos/
