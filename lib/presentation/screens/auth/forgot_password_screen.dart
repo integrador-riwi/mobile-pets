@@ -89,7 +89,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 24,
             offset: const Offset(0, 4),
           ),
@@ -144,7 +144,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               width: 110,
               height: 110,
               decoration: BoxDecoration(
-                color: _primary.withOpacity(0.12),
+                color: _primary.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -165,7 +165,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 6,
                     offset: const Offset(0, 2),
                   ),
@@ -198,9 +198,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return TextField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.done,
+      onSubmitted: (_) => _sendResetLink(),
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
-        hintText: 'name@correo.com',
+        hintText: 'name@email.com',
         hintStyle: const TextStyle(color: _textLight, fontSize: 14),
         prefixIcon: const Icon(Icons.mail_outline, color: _textMuted, size: 20),
         filled: true,

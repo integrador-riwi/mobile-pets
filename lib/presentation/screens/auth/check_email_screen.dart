@@ -68,7 +68,7 @@ class CheckEmailScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 24,
             offset: const Offset(0, 4),
           ),
@@ -139,7 +139,7 @@ class CheckEmailScreen extends StatelessWidget {
               width: 110,
               height: 110,
               decoration: BoxDecoration(
-                color: _primary.withOpacity(0.12),
+                color: _primary.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -160,7 +160,7 @@ class CheckEmailScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 6,
                     offset: const Offset(0, 2),
                   ),

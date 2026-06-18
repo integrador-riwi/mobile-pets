@@ -13,6 +13,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureConfirm = true;
   bool _acceptTerms = false;
 
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _confirmFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    _confirmFocus.dispose();
+    super.dispose();
+  }
+
   static const Color _primary = Color(0xFF3A80C2);
   static const Color _bg = Color(0xFFF0F4F4);
   static const Color _inputFill = Color(0xFFEEF3F3);
@@ -77,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 24,
             offset: const Offset(0, 4),
           ),
@@ -152,6 +164,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return TextField(
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => _emailFocus.requestFocus(),
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
         hintText: 'Your name',
@@ -174,10 +188,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _emailField() {
     return TextField(
+      focusNode: _emailFocus,
       keyboardType: TextInputType.emailAddress,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => _passwordFocus.requestFocus(),
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
-        hintText: 'name@correo.com',
+        hintText: 'name@email.com',
         hintStyle: const TextStyle(color: _textLight, fontSize: 14),
         prefixIcon: const Icon(Icons.mail_outline, color: _textMuted, size: 20),
         filled: true,
@@ -193,7 +212,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _passwordField() {
     return TextField(
+      focusNode: _passwordFocus,
       obscureText: _obscurePassword,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => _confirmFocus.requestFocus(),
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
         hintText: '••••••••',
@@ -227,7 +251,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _confirmPasswordField() {
     return TextField(
+      focusNode: _confirmFocus,
       obscureText: _obscureConfirm,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.done,
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
         hintText: '••••••••',
@@ -264,50 +292,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _termsRow() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Checkbox(
-            value: _acceptTerms,
-            onChanged: (v) => setState(() => _acceptTerms = v ?? false),
-            activeColor: _primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            side: const BorderSide(color: Color(0xFFCDD2E0), width: 1.5),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: RichText(
-            text: const TextSpan(
-              text: 'I agree to the ',
-              style: TextStyle(fontSize: 13, color: Color(0xFF4A4A6A)),
-              children: [
-                TextSpan(
-                  text: 'Terms of Service',
-                  style: TextStyle(
-                    color: _primary,
-                    fontWeight: FontWeight.w600,
-                  ),
+    return InkWell(
+      onTap: () => setState(() => _acceptTerms = !_acceptTerms),
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: Checkbox(
+                value: _acceptTerms,
+                onChanged: (v) => setState(() => _acceptTerms = v ?? false),
+                activeColor: _primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
                 ),
-                TextSpan(text: ' and '),
-                TextSpan(
-                  text: 'Privacy Policy',
-                  style: TextStyle(
-                    color: _primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
+                side: const BorderSide(color: Color(0xFFCDD2E0), width: 1.5),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
             ),
-          ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: RichText(
+                text: const TextSpan(
+                  text: 'I agree to the ',
+                  style: TextStyle(fontSize: 13, color: Color(0xFF4A4A6A)),
+                  children: [
+                    TextSpan(
+                      text: 'Terms of Service',
+                      style: TextStyle(
+                        color: _primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextSpan(text: ' and '),
+                    TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                        color: _primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
