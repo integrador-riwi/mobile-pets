@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'forgot_password_screen.dart';
 import 'register_screen.dart';
 
@@ -305,7 +306,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _socialRow() {
     return Row(
       children: [
-        Expanded(child: _SocialButton(label: 'Google', icon: _GoogleIcon())),
+        Expanded(
+          child: _SocialButton(
+            label: 'Google',
+            icon: SvgPicture.asset(
+              'assets/icons/google.svg',
+              width: 20,
+              height: 20,
+            ),
+          ),
+        ),
         const SizedBox(width: 16),
         Expanded(
           child: _SocialButton(
@@ -358,7 +368,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         const SizedBox(height: 8),
         const Text(
-          '© 2024 Balto Inc. Secure Login',
+          '© 2026 Balto Inc. Secure Login',
           style: TextStyle(fontSize: 11, color: _textLight),
         ),
       ],
@@ -420,25 +430,3 @@ class _SocialButton extends StatelessWidget {
   }
 }
 
-class _GoogleIcon extends StatelessWidget {
-  const _GoogleIcon();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: const BoxDecoration(shape: BoxShape.circle),
-      child: const Text(
-        'G',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF4285F4),
-          height: 1.3,
-        ),
-      ),
-    );
-  }
-}

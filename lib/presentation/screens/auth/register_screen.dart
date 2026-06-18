@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -153,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       textCapitalization: TextCapitalization.words,
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
-        hintText: 'Jane Doe',
+        hintText: 'Your name',
         hintStyle: const TextStyle(color: _textLight, fontSize: 14),
         prefixIcon: const Icon(
           Icons.person_outline,
@@ -367,7 +368,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _socialRow() {
     return Row(
       children: [
-        Expanded(child: _SocialButton(label: 'Google', icon: _GoogleIcon())),
+        Expanded(
+          child: _SocialButton(
+            label: 'Google',
+            icon: SvgPicture.asset(
+              'assets/icons/google.svg',
+              width: 20,
+              height: 20,
+            ),
+          ),
+        ),
         const SizedBox(width: 16),
         Expanded(
           child: _SocialButton(
@@ -418,7 +428,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         const SizedBox(height: 8),
         const Text(
-          '© 2024 Balto Inc. Secure Signup',
+          '© 2026 Balto Inc. Secure Signup',
           style: TextStyle(fontSize: 11, color: _textLight),
         ),
       ],
@@ -480,25 +490,3 @@ class _SocialButton extends StatelessWidget {
   }
 }
 
-class _GoogleIcon extends StatelessWidget {
-  const _GoogleIcon();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: const BoxDecoration(shape: BoxShape.circle),
-      child: const Text(
-        'G',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF4285F4),
-          height: 1.3,
-        ),
-      ),
-    );
-  }
-}

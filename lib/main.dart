@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/widgets/bottom_nav/balto_bottom_nav_bar.dart';
 
 void main() {
@@ -14,10 +15,10 @@ class BaltoApp extends StatelessWidget {
       title: 'Balto',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF607F7F)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3A80C2)),
         useMaterial3: true,
       ),
-      home: const MainShell(),
+      home: const LoginScreen(),
     );
   }
 }
