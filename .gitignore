@@ -87,3 +87,6 @@ app.*.map.json
 **/skills.md
 **/skills.*
 **/skills/**
+
+# Local-only desktop platform
+linux/
