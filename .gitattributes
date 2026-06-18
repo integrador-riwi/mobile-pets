@@ -1,0 +1,5 @@
+# Hide Flutter platform wrappers from GitHub language stats
+android/* linguist-vendored
+ios/* linguist-vendored
+web/* linguist-vendored
+*.g.dart linguist-generated
