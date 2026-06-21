@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'core/di/injection.dart';
 import 'presentation/screens/auth/login_screen.dart';
 import 'presentation/widgets/bottom_nav/balto_bottom_nav_bar.dart';
 
 void main() {
+  setupDependencies();
   runApp(const BaltoApp());
 }
 
