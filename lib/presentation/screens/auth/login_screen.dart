@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 24,
             offset: const Offset(0, 4),
           ),
@@ -144,9 +144,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _emailField() {
     return TextField(
       keyboardType: TextInputType.emailAddress,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.next,
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
-        hintText: 'name@correo.com',
+        hintText: 'name@email.com',
         hintStyle: const TextStyle(color: _textLight, fontSize: 14),
         prefixIcon: const Icon(Icons.mail_outline, color: _textMuted, size: 20),
         filled: true,
@@ -172,16 +175,20 @@ class _LoginScreenState extends State<LoginScreen> {
             color: _textDark,
           ),
         ),
-        GestureDetector(
+        InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
           ),
-          child: const Text(
-            'Forgot Password?',
-            style: TextStyle(
-              fontSize: 14,
-              color: _primary,
-              fontWeight: FontWeight.w500,
+          borderRadius: BorderRadius.circular(8),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+            child: Text(
+              'Forgot Password?',
+              style: TextStyle(
+                fontSize: 14,
+                color: _primary,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
@@ -192,6 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _passwordField() {
     return TextField(
       obscureText: _obscurePassword,
+      autocorrect: false,
+      enableSuggestions: false,
+      textInputAction: TextInputAction.done,
       style: const TextStyle(fontSize: 14, color: _textDark),
       decoration: InputDecoration(
         hintText: '••••••••',
@@ -224,28 +234,35 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _rememberRow() {
-    return Row(
-      children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Checkbox(
-            value: _rememberDevice,
-            onChanged: (v) => setState(() => _rememberDevice = v ?? false),
-            activeColor: _primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+    return InkWell(
+      onTap: () => setState(() => _rememberDevice = !_rememberDevice),
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: Checkbox(
+                value: _rememberDevice,
+                onChanged: (v) => setState(() => _rememberDevice = v ?? false),
+                activeColor: _primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                side: const BorderSide(color: Color(0xFFCDD2E0), width: 1.5),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
             ),
-            side: const BorderSide(color: Color(0xFFCDD2E0), width: 1.5),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
+            const SizedBox(width: 10),
+            const Text(
+              'Remember this device',
+              style: TextStyle(fontSize: 14, color: Color(0xFF4A4A6A)),
+            ),
+          ],
         ),
-        const SizedBox(width: 10),
-        const Text(
-          'Remember this device',
-          style: TextStyle(fontSize: 14, color: Color(0xFF4A4A6A)),
-        ),
-      ],
+      ),
     );
   }
 

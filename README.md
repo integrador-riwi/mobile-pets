@@ -1,6 +1,6 @@
-# PawExplorers — Mobile App
+# Balto — Mobile App
 
-App móvil Flutter para la plataforma PawExplorers. Conecta dueños de mascotas, walkers y negocios pet care.
+App móvil Flutter para la plataforma Balto. Conecta dueños de mascotas, walkers y negocios pet care.
 
 ## Stack
 
