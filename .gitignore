@@ -38,6 +38,7 @@ migrate_working_dir/
 # Environment and secrets
 .env
 .env.*
+!.env.json.example
 *.env
 *.key
 *.pem
@@ -87,3 +88,7 @@ app.*.map.json
 **/skills.md
 **/skills.*
 **/skills/**
+
+# Local-only desktop platform
+linux/
+macos/
